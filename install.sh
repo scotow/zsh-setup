@@ -23,6 +23,5 @@ for file in 'local' autosuggestions syntax-highlighting fzf-key-bindings fzf-key
     echo "[Warning] .zshrc.$file already exits. Moving it to $dest"
     mv .zshrc $dest
   fi
-
-  curl -o ".zshrc.$file" "https://raw.githubusercontent.com/scotow/zsh-setup/$file.zsh"
+  curl -o ".zshrc.$file" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh"
 done
