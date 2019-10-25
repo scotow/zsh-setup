@@ -21,7 +21,7 @@ for file in 'local' autosuggestions syntax-highlighting fzf-key-bindings fzf-key
   if [[ -f ".zshrc.$file" ]]; then
     dest=".zshrc.$file.$(date +%F).old"
     echo "[Warning] .zshrc.$file already exits. Moving it to $dest"
-    mv .zshrc $dest
+    mv ".zshrc.$file" $dest
   fi
   curl -o ".zshrc.$file" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh"
 done
