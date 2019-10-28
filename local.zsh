@@ -341,7 +341,7 @@ if type go > /dev/null; then
 fi
 
 ## Less
-if type less > /den/null; then
+if type less > /dev/null; then
   export LESS=" -R "
   alias less='less -m -N -g -i -J -u -Q'
   
