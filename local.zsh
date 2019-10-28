@@ -351,16 +351,16 @@ if type less > /dev/null; then
 fi
 
 ## Suggestions & Highlighting
-if [[ -f ~/.zshrc.autosuggestions ]]; then
-  source ~/.zshrc.autosuggestions
+if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
   bindkey '^[[Z' autosuggest-accept
 elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   bindkey '^[[Z' autosuggest-accept
 fi
 
-if [[ -f ~/.zshrc.syntax-highlighting ]]; then
-  source ~/.zshrc.syntax-highlighting
+if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
