@@ -74,14 +74,19 @@ echo 'OK'
 
 ## Check/create .zsh directory.
 echo -n '[INFO] Checking for .zsh directory...'
-if [[ ! -e .zsh ]]; then
-  echo -en '\n[INFO] Creating .zsh directory...'
+if [[ -e .zsh ]]; then
+  if [[ -d .zsh ]]; then
+    echo 'OK'
+  else
+    echo -e "\n[ERROR] .zsh already exists and it's not a directory. Exiting."
+    exit 1
+  fi  
+else
+  echo 'Not found'
+  echo -n '[INFO] Creating .zsh directory...'
   mkdir .zsh || exit 1
-elif [[ ! -d .zsh ]]; then
-  echo -e "\n[ERROR] .zsh already exists and it's not a directory. Exiting."
-  exit 1
+  echo 'OK'
 fi
-echo 'OK'
 
 ## Download zsh-autosuggestions and zsh-syntax-highlighting.
 for plugin in 'zsh-autosuggestions' 'zsh-syntax-highlighting'; do
@@ -103,29 +108,35 @@ if ! type fzf >/dev/null 2>&1; then
   if [[ -e .zsh/bin/fzf ]]; then
     echo '[WARN] .zsh/bin/fzf already exists but is not in the the current path.'
   else
-    echo '[INFO] Installing fzf (only linux/macOS amd64 are supported).'
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      distro="$(uname -s | tr 'A-Z' 'a-z')"
-      if [[ $distro == *linux* ]]; then
-        distro="linux"
-      elif [[ $distro == *darwin* ]]; then
-        distro="darwin"
+    echo '[INFO] Installing fzf is only supported on linux/macOS amd64.'
+    distro="$(uname -s | tr 'A-Z' 'a-z')"
+    if [[ $distro == *linux* ]]; then
+      distro="linux"
+    elif [[ $distro == *darwin* ]]; then
+      distro="darwin"
+    else
+      echo "[WARN] Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
+      distro="none"
+    fi
+
+    echo -n '[INFO] Checking for .zsh/bin directory...'
+    if [[ -e .zsh/bin ]]; then
+      if [[ -d .zsh/bin ]]; then
+        echo 'OK'
       else
-        echo "[WARN] Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
+        echo -e "\n[WARN] .zsh/bin already exists and it's not a directory. Skipping fzf installation."
         distro="none"
-      fi
+      fi  
+    else
+      echo 'Not found'
+      echo -n '[INFO] Creating .zsh/bin directory...'
+      mkdir .zsh/bin || exit 1
+      echo 'OK'
+    fi
 
-      if [[ ! -e .zsh/bin ]]; then
-        mkdir .zsh/bin
-      elif [[ ! -d .zsh/bin ]]; then
-        echo "[ERROR] .zsh/bin already exists but it's not a directory. Skipping fzf installation."
-        distro="none"
-      fi
-
-      if [[ "$distro" != "none" ]]; then
-        version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
-        curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_amd64.tgz" | tar -xzf - -C .zsh/bin || exit 1
-      fi
+    if [[ "$distro" != "none" ]]; then
+      version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
+      curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_amd64.tgz" | tar -xzf - -C .zsh/bin || exit 1
     fi
   fi
 else
