@@ -44,6 +44,34 @@ echo -n '[INFO] Moving to home directory...'
 cd $HOME || exit 1
 echo 'OK'
 
+## Download grml .zshrc.
+echo -n '[INFO] Checking for .zshrc...'
+if [[ -f .zshrc ]]; then
+  dest=".zshrc.$(date +%F).old"
+  echo -en "\n[WARN] .zshrc already exits. Moving it to $dest..."
+  mv .zshrc $dest || exit 1
+  echo 'OK'
+else
+  echo 'OK'
+fi
+echo -n '[INFO] Downloading .zshrc from grml website...'
+curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
+echo 'OK'
+
+## Download .zshrc.local.
+echo -n '[INFO] Checking for .zshrc.local...'
+if [[ -f ".zshrc.local" ]]; then
+  dest=".zshrc.local.$(date +%F).old"
+  echo -en "\n[WARN] .zshrc.local already exits. Moving it to $dest..."
+  mv ".zshrc.local" $dest || exit 1
+  echo 'OK'
+else
+  echo 'OK'
+fi
+echo -n '[INFO] Downloading .zshrc.local from GitHub...'
+curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
+echo 'OK'
+
 ## Check/create .zsh directory.
 echo -n '[INFO] Checking for .zsh directory...'
 if [[ ! -e .zsh ]]; then
@@ -54,6 +82,19 @@ elif [[ ! -d .zsh ]]; then
   exit 1
 fi
 echo 'OK'
+
+## Download zsh-autosuggestions and zsh-syntax-highlighting.
+for plugin in 'zsh-autosuggestions' 'zsh-syntax-highlighting'; do
+  echo -n "[INFO] Checking for $plugin..."
+  if [[ -d ".zsh/$plugin" ]]; then
+    echo -e "\n[WARN] .zsh/$plugin already exits. Skipping."
+  else
+    echo 'OK'
+    echo -n "[INFO] Cloning $plugin from GitHub..."
+    git clone -q "https://github.com/zsh-users/$plugin" ".zsh/$plugin" || exit 1
+    echo 'OK'
+  fi
+done
 
 ## Install fzf binary.
 echo -n '[INFO] Checking for fzf binnary...'
@@ -90,47 +131,6 @@ if ! type fzf >/dev/null 2>&1; then
 else
   echo 'OK'
 fi
-
-## Download grml .zshrc.
-echo -n '[INFO] Checking for .zshrc...'
-if [[ -f .zshrc ]]; then
-  dest=".zshrc.$(date +%F).old"
-  echo -en "\n[WARN] .zshrc already exits. Moving it to $dest..."
-  mv .zshrc $dest || exit 1
-  echo 'OK'
-else
-  echo 'OK'
-fi
-echo -n '[INFO] Downloading .zshrc from grml website...'
-curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
-echo 'OK'
-
-## Download .zshrc.local.
-echo -n '[INFO] Checking for .zshrc.local...'
-if [[ -f ".zshrc.local" ]]; then
-  dest=".zshrc.local.$(date +%F).old"
-  echo -en "\n[WARN] .zshrc.local already exits. Moving it to $dest..."
-  mv ".zshrc.local" $dest || exit 1
-  echo 'OK'
-else
-  echo 'OK'
-fi
-echo -n '[INFO] Downloading .zshrc.local from GitHub...'
-curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
-echo 'OK'
-
-## Download zsh-autosuggestions and zsh-syntax-highlighting.
-for plugin in 'zsh-autosuggestions' 'zsh-syntax-highlighting'; do
-  echo -n "[INFO] Checking for $plugin..."
-  if [[ -d ".zsh/$plugin" ]]; then
-    echo -e "\n[WARN] .zsh/$plugin already exits. Skipping."
-  else
-    echo 'OK'
-    echo -n "[INFO] Cloning $plugin from GitHub..."
-    git clone -q "https://github.com/zsh-users/$plugin" ".zsh/$plugin" || exit 1
-    echo 'OK'
-  fi
-done
 
 ## Download fzf plugins.
 for file in fzf-key-bindings fzf-key-completion; do
