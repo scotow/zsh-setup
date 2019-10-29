@@ -119,27 +119,18 @@ echo -n '[INFO] Downloading .zshrc.local from GitHub...'
 curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
 echo 'OK'
 
-## Download zsh-autosuggestions.
-echo -n '[INFO] Checking for zsh-autosuggestions...'
-if [[ -d ".zsh/zsh-autosuggestions" ]]; then
-  echo -e "\n[WARN] .zsh/zsh-autosuggestions already exits. Skipping."
-else
-  echo 'OK'
-  echo -n '[INFO] Cloning zsh-autosuggestions from GitHub...'
-  git clone -q https://github.com/zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions || exit 1
-  echo 'OK'
-fi
-
-## Download syntax-highlighting.
-echo -n '[INFO] Checking for syntax-highlighting...'
-if [[ -d ".zsh/syntax-highlighting" ]]; then
-  echo -e "\n[WARN] .zsh/syntax-highlighting already exits. Skipping."
-else
-  echo 'OK'
-  echo -n '[INFO] Cloning syntax-highlighting from GitHub...'
-  git clone -q https://github.com/zsh-users/zsh-syntax-highlighting .zsh/syntax-highlightings || exit 1
-  echo 'OK'
-fi
+## Download zsh-autosuggestions and zsh-syntax-highlighting.
+for plugin in 'zsh-autosuggestions' 'zsh-syntax-highlighting'; do
+  echo -n "[INFO] Checking for $plugin..."
+  if [[ -d ".zsh/$plugin" ]]; then
+    echo -e "\n[WARN] .zsh/$plugin already exits. Skipping."
+  else
+    echo 'OK'
+    echo -n "[INFO] Cloning $plugin from GitHub..."
+    git clone -q "https://github.com/zsh-users/$plugin" ".zsh/$plugin" || exit 1
+    echo 'OK'
+  fi
+done
 
 ## Download fzf plugins.
 for file in fzf-key-bindings fzf-key-completion; do
