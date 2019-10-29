@@ -52,7 +52,7 @@ if [[ -f .zshrc ]]; then
   mv .zshrc $dest || exit 1
   echo 'OK'
 else
-  echo 'OK'
+  echo 'Not found'
 fi
 echo -n '[INFO] Downloading .zshrc from grml website...'
 curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
@@ -66,7 +66,7 @@ if [[ -f ".zshrc.local" ]]; then
   mv ".zshrc.local" $dest || exit 1
   echo 'OK'
 else
-  echo 'OK'
+  echo 'Not found'
 fi
 echo -n '[INFO] Downloading .zshrc.local from GitHub...'
 curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
@@ -94,7 +94,7 @@ for plugin in 'zsh-autosuggestions' 'zsh-syntax-highlighting'; do
   if [[ -d ".zsh/$plugin" ]]; then
     echo -e "\n[WARN] .zsh/$plugin already exits. Skipping."
   else
-    echo 'OK'
+    echo 'Not found'
     echo -n "[INFO] Cloning $plugin from GitHub..."
     git clone -q "https://github.com/zsh-users/$plugin" ".zsh/$plugin" || exit 1
     echo 'OK'
@@ -152,7 +152,7 @@ for file in fzf-key-bindings fzf-key-completion; do
     mv ".zsh/$file.zsh" $dest || exit 1
     echo 'OK'
   else
-    echo 'OK'
+    echo 'Not found'
   fi
   echo -n "[INFO] Downloading $file from Github..."
   curl -sLo ".zsh/$file.zsh" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh" || exit 1
