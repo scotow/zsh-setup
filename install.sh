@@ -45,7 +45,7 @@ cd $HOME || exit 1
 echo 'OK'
 
 ## Check/create .zsh directory.
-echo -n '[INFO] Chcking for .zsh directory...'
+echo -n '[INFO] Checking for .zsh directory...'
 if [[ ! -e .zsh ]]; then
   echo -en '\n[INFO] Creating .zsh directory...'
   mkdir .zsh || exit 1
