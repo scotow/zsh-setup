@@ -22,6 +22,8 @@ else
   echo '[WARNING] zsh not installed.'
 fi
 
+mv $HOME || exit 1
+
 if [[ ! -e .zsh ]]; then
   mkdir .zsh
 elif [[ ! -d .zsh ]]; then
@@ -34,7 +36,7 @@ if [[ -f .zshrc ]]; then
   echo "[WARNING] .zshrc already exits. Moving it to $dest"
   mv .zshrc $dest || exit 1
 fi
-curl -sLo ~/.zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
+curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
 
 if [[ -f ".zshrc.local" ]]; then
     dest=".zshrc.local.$(date +%F).old"
@@ -43,14 +45,14 @@ if [[ -f ".zshrc.local" ]]; then
   fi
 curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions || exit 1
-git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting || exit 1
+git clone https://github.com/zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions || exit 1
+git clone https://github.com/zsh-users/zsh-syntax-highlighting .zsh/zsh-syntax-highlighting || exit 1
 
-# for file in 'local' autosuggestions syntax-highlighting fzf-key-bindings fzf-key-completion; do
-#   if [[ -f ".zshrc.$file" ]]; then
-#     dest=".zshrc.$file.$(date +%F).old"
-#     echo "[WARNING] .zshrc.$file already exits. Moving it to $dest"
-#     mv ".zshrc.$file" $dest || exit 1
-#   fi
-#   curl -sLo ".zshrc.$file" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh" || exit 1
-# done
+for file in fzf-key-bindings fzf-key-completion; do
+  if [[ -f ".zsh/$file.zsh" ]]; then
+    dest=".zsh/$file.zsh.$(date +%F).old"
+    echo "[WARNING] .zsh/$file.zsh already exits. Moving it to $dest"
+    mv ".zsh/$file.zsh" $dest || exit 1
+  fi
+  curl -sLo ".zsh/$file.zsh" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh" || exit 1
+done
