@@ -336,50 +336,60 @@ stty erase "^?"
 ## END OF FILE #################################################################
 
 if [[ -d ~/.zsh/bin ]]; then
-  export PATH=$PATH:$HOME/.zsh/bin
+    export PATH=$PATH:$HOME/.zsh/bin
 fi
 
 ## Aliases
 if type go >/dev/null 2>&1; then
-  alias cdgo='cd /home/$USER/go/src/github.com/$USER'
+    alias cdgo='cd /home/$USER/go/src/github.com/$USER'
 fi
 
 ## Less
 if type less >/dev/null 2>&1; then
-  export LESS=" -R "
-  alias less='less -m -N -g -i -J -u -Q'
+    export LESS=" -R "
+    alias less='less -m -N -g -i -J -u -Q'
   
-  if type src-hilite-lesspipe.sh >/dev/null 2>&1; then
-    export LESSOPEN="| src-hilite-lesspipe.sh %s"
-  fi
+    if type src-hilite-lesspipe.sh >/dev/null 2>&1; then
+        export LESSOPEN="| src-hilite-lesspipe.sh %s"
+    fi
 fi
 
 ## Suggestions & Highlighting
 if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-  bindkey '^[[Z' autosuggest-accept
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+    bindkey '^[[Z' autosuggest-accept
 elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-  bindkey '^[[Z' autosuggest-accept
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+    bindkey '^[[Z' autosuggest-accept
 fi
 
 if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+    source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ## Fzf
 if type fzf >/dev/null 2>&1; then
-  if [[ -f ~/.zsh/fzf-key-bindings.zsh ]]; then 
-    source ~/.zsh/fzf-key-bindings.zsh
-  elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
-    source /usr/share/fzf/key-bindings.zsh
-  fi
+    if [[ -f ~/.zsh/fzf-key-bindings.zsh ]]; then 
+        source ~/.zsh/fzf-key-bindings.zsh
+    elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+        source /usr/share/fzf/key-bindings.zsh
+    fi
 
-  if [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
-    source ~/.zsh/fzf-completion.zsh
-  elif [[ -f /usr/share/fzf/completion.zsh ]]; then
-    source /usr/share/fzf/completion.zsh
-  fi
+    if [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
+        source ~/.zsh/fzf-completion.zsh
+    elif [[ -f /usr/share/fzf/completion.zsh ]]; then
+        source /usr/share/fzf/completion.zsh
+    fi
 fi
+
+## Helpers
+sha256sum() {
+    regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    if [[ $1 =~ $regex ]]; then
+        curl -sL $1 | command sha256sum
+    else
+        command sha256sum $@
+    fi
+}
