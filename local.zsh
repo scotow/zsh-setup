@@ -371,14 +371,14 @@ fi
 
 ## Fzf
 if type fzf >/dev/null 2>&1; then
-  if [[ -f ~/.zshrc.fzf-key-bindings ]]; then 
-    source ~/.zshrc.fzf-key-bindings
+  if [[ -f ~/.zsh/fzf-key-bindings.zsh ]]; then 
+    source ~/.zsh/fzf-key-bindings.zsh
   elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
     source /usr/share/fzf/key-bindings.zsh
   fi
 
-  if [[ -f ~/.zshrc.fzf-key-completion ]]; then 
-    source ~/.zshrc.fzf-key-completion
+  if [[ -f ~/.zsh/fzf-key-completion.zsh ]]; then 
+    source ~/.zsh/fzf-key-completion.zsh
   elif [[ -f /usr/share/fzf/completion.zsh ]]; then
     source /usr/share/fzf/completion.zsh
   fi
