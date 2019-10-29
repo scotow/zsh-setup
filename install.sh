@@ -137,7 +137,7 @@ if [[ -d ".zsh/syntax-highlighting" ]]; then
 else
   echo 'OK'
   echo -n '[INFO] Cloning syntax-highlighting from GitHub...'
-  git clone -q https://github.com/zsh-users/syntax-highlighting .zsh/syntax-highlightings || exit 1
+  git clone -q https://github.com/zsh-users/zsh-syntax-highlighting .zsh/syntax-highlightings || exit 1
   echo 'OK'
 fi
 
