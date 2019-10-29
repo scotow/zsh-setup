@@ -45,14 +45,15 @@ cd $HOME || exit 1
 echo 'OK'
 
 ## Check/create .zsh directory.
-echo -n '[INFO] Creating .zsh directory...'
-if [[ ! -e .zsh ]]; then 
+echo -n '[INFO] Chcking for .zsh directory...'
+if [[ ! -e .zsh ]]; then
+  echo -en '\n[INFO] Creating .zsh directory...'
   mkdir .zsh || exit 1
-  echo 'OK'
 elif [[ ! -d .zsh ]]; then
   echo -e "\n[ERROR] .zsh already exists and it's not a directory. Exiting."
   exit 1
 fi
+echo 'OK'
 
 ## Install fzf binary.
 echo -n '[INFO] Checking for fzf binnary...'
@@ -94,48 +95,66 @@ fi
 echo -n '[INFO] Downloading .zshrc from grml...'
 if [[ -f .zshrc ]]; then
   dest=".zshrc.$(date +%F).old"
-  echo -e "\n[WARNING] .zshrc already exits. Moving it to $dest."
+  echo -en "\n[WARNING] .zshrc already exits. Moving it to $dest..."
   mv .zshrc $dest || exit 1
-  curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
+  echo 'OK'
 else
-  curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
   echo 'OK'
 fi
+echo -n '[INFO] Downloading .zshrc from grml website...'
+curl -sLo .zshrc https://git.grml.org/f/grml-etc-core/etc/zsh/zshrc || exit 1
+echo 'OK'
 
 ## Download .zshrc.local.
-echo -n '[INFO] Downloading .zshrc.local from GitHub...'
+echo -n '[INFO] Checking for .zshrc.local...'
 if [[ -f ".zshrc.local" ]]; then
   dest=".zshrc.local.$(date +%F).old"
-  echo -e "\n[WARNING] .zshrc.local already exits. Moving it to $dest."
+  echo -en "\n[WARNING] .zshrc.local already exits. Moving it to $dest..."
   mv ".zshrc.local" $dest || exit 1
-  curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
+  echo 'OK'
 else
-  curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
+  echo 'OK'
+fi
+echo -n '[INFO] Downloading .zshrc.local from GitHub...'
+curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
+echo 'OK'
+
+## Download zsh-autosuggestions.
+echo -n '[INFO] Checking for zsh-autosuggestions...'
+if [[ -d ".zsh/zsh-autosuggestions" ]]; then
+  echo -e "\n[WARNING] .zshrc.local already exits. Skipping."
+else
+  echo 'OK'
+  echo -n '[INFO] Cloning zsh-autosuggestions from GitHub...'
+  git clone -q https://github.com/zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions || exit 1
   echo 'OK'
 fi
 
-## Download zsh-autosuggestions.
-echo -n '[INFO] Cloning zsh-autosuggestions from GitHub...'
-git clone -q https://github.com/zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions || exit 1
-echo 'OK'
-
 ## Download syntax-highlighting.
-echo -n '[INFO] Cloning syntax-highlighting from GitHub...'
-git clone -q https://github.com/zsh-users/zsh-syntax-highlighting .zsh/zsh-syntax-highlighting || exit 1
-echo 'OK'
+echo -n '[INFO] Checking for syntax-highlighting...'
+if [[ -d ".zsh/syntax-highlighting" ]]; then
+  echo -e "\n[WARNING] .zshrc.local already exits. Skipping."
+else
+  echo 'OK'
+  echo -n '[INFO] Cloning syntax-highlighting from GitHub...'
+  git clone -q https://github.com/zsh-users/syntax-highlighting .zsh/syntax-highlightings || exit 1
+  echo 'OK'
+fi
 
 ## Download fzf plugins.
 for file in fzf-key-bindings fzf-key-completion; do
-  echo -n "[INFO] Downloading $file from Github..."
+  echo -n "[INFO] Checking for $file..."
   if [[ -f ".zsh/$file.zsh" ]]; then
     dest=".zsh/$file.zsh.$(date +%F).old"
     echo -e "\n[WARNING] .zsh/$file.zsh already exits. Moving it to $dest."
     mv ".zsh/$file.zsh" $dest || exit 1
-    curl -sLo ".zsh/$file.zsh" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh" || exit 1
+    echo 'OK'
   else
-    curl -sLo ".zsh/$file.zsh" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh" || exit 1
     echo 'OK'
   fi
+  echo -n "[INFO] Downloading $file from Github..."
+  curl -sLo ".zsh/$file.zsh" "https://raw.githubusercontent.com/scotow/zsh-setup/master/$file.zsh" || exit 1
+  echo 'OK'
 done
 
 echo -e '\n[INFO] Installation complete. Restart your shell or run "exec zsh" to apply.'
