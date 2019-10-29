@@ -122,7 +122,7 @@ echo 'OK'
 ## Download zsh-autosuggestions.
 echo -n '[INFO] Checking for zsh-autosuggestions...'
 if [[ -d ".zsh/zsh-autosuggestions" ]]; then
-  echo -e "\n[WARN] .zshrc.local already exits. Skipping."
+  echo -e "\n[WARN] .zsh/zsh-autosuggestions already exits. Skipping."
 else
   echo 'OK'
   echo -n '[INFO] Cloning zsh-autosuggestions from GitHub...'
@@ -133,7 +133,7 @@ fi
 ## Download syntax-highlighting.
 echo -n '[INFO] Checking for syntax-highlighting...'
 if [[ -d ".zsh/syntax-highlighting" ]]; then
-  echo -e "\n[WARN] .zshrc.local already exits. Skipping."
+  echo -e "\n[WARN] .zsh/syntax-highlighting already exits. Skipping."
 else
   echo 'OK'
   echo -n '[INFO] Cloning syntax-highlighting from GitHub...'
