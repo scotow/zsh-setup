@@ -340,16 +340,16 @@ if [[ -d ~/.zsh/bin ]]; then
 fi
 
 ## Aliases
-if type go > /dev/null; then
+if type go >/dev/null 2>&1; then
   alias cdgo='cd /home/$USER/go/src/github.com/$USER'
 fi
 
 ## Less
-if type less > /dev/null; then
+if type less >/dev/null 2>&1; then
   export LESS=" -R "
   alias less='less -m -N -g -i -J -u -Q'
   
-  if type src-hilite-lesspipe.sh > /dev/null; then
+  if type src-hilite-lesspipe.sh >/dev/null 2>&1; then
     export LESSOPEN="| src-hilite-lesspipe.sh %s"
   fi
 fi
@@ -370,7 +370,7 @@ elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlightin
 fi
 
 ## Fzf
-if type fzf > /dev/null; then
+if type fzf >/dev/null 2>&1; then
   if [[ -f ~/.zshrc.fzf-key-bindings ]]; then 
     source ~/.zshrc.fzf-key-bindings
   elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then

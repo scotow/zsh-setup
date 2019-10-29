@@ -1,25 +1,30 @@
 #!/usr/bin/env bash
 
-
 ## Checking for curl.
-if ! type curl > /dev/null; then
+if ! type curl >/dev/null 2>&1; then
   echo '[ERROR] This script requires curl. Exiting.'
   exit 1
 fi
 
 ## Checking for git.
-if ! type git > /dev/null; then
+if ! type git >/dev/null 2>&1; then
   echo '[ERROR] This script requires git. Exiting.'
   exit 1
 fi
 
+## Checking for tar.
+if ! type tar >/dev/null 2>&1; then
+  echo '[ERROR] This script requires tar. Exiting.'
+  exit 1
+fi
+
 ## Checking for optional zsh.
-if type zsh > /dev/null; then
+if type zsh >/dev/null 2>&1; then
   if ! [[ $SHELL =~ "zsh" ]]; then
     read -p '[INFO] You are not using zsh, do you want to change now? [y/N]' -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then
-      chsh -s "$(which zsh)"
+      chsh -s "$(which zsh | head -n1)"
     fi
   fi
 else
@@ -46,7 +51,7 @@ elif [[ ! -d .zsh/fzf ]]; then
 fi
 
 ## Install fzf binary.
-if ! type fzf > /dev/null; then
+if ! type fzf >/dev/null 2>&1; then
   if [[ -e .zsh/bin/fzf ]]; then
     echo '[WARNING] .zsh/bin/fzf already exists but is not in the the current path.'
   else
@@ -60,11 +65,6 @@ if ! type fzf > /dev/null; then
         distro="darwin"
       else
         echo "[ERROR] Cannot use the following distro for fzf installation: $distro."
-        exit 1
-      fi
-
-      if ! type tar > /dev/null; then
-        echo '[ERROR] The installation requires tar. Exiting.'
         exit 1
       fi
 
@@ -96,8 +96,8 @@ if [[ -f ".zshrc.local" ]]; then
   fi
 curl -sLo ".zshrc.local" "https://raw.githubusercontent.com/scotow/zsh-setup/master/local.zsh" || exit 1
 
-git clone https://github.com/zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions || exit 1
-git clone https://github.com/zsh-users/zsh-syntax-highlighting .zsh/zsh-syntax-highlighting || exit 1
+git clone -q https://github.com/zsh-users/zsh-autosuggestions .zsh/zsh-autosuggestions || exit 1
+git clone -q https://github.com/zsh-users/zsh-syntax-highlighting .zsh/zsh-syntax-highlighting || exit 1
 
 for file in fzf-key-bindings fzf-key-completion; do
   if [[ -f ".zsh/$file.zsh" ]]; then
