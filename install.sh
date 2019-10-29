@@ -92,7 +92,7 @@ else
 fi
 
 ## Download grml .zshrc.
-echo -n '[INFO] Downloading .zshrc from grml...'
+echo -n '[INFO] Checking for .zshrc...'
 if [[ -f .zshrc ]]; then
   dest=".zshrc.$(date +%F).old"
   echo -en "\n[WARN] .zshrc already exits. Moving it to $dest..."
