@@ -156,7 +156,7 @@ else
 fi
 
 ## Download fzf plugins.
-for file in fzf-key-bindings fzf-key-completion; do
+for file in fzf-key-bindings fzf-completion; do
   echo -n "[INFO] Checking for $file..."
   if [[ -f ".zsh/$file.zsh" ]]; then
     dest=".zsh/$file.zsh.$(date +%F).old"

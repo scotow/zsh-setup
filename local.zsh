@@ -377,8 +377,8 @@ if type fzf >/dev/null 2>&1; then
     source /usr/share/fzf/key-bindings.zsh
   fi
 
-  if [[ -f ~/.zsh/fzf-key-completion.zsh ]]; then 
-    source ~/.zsh/fzf-key-completion.zsh
+  if [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
+    source ~/.zsh/fzf-completion.zsh
   elif [[ -f /usr/share/fzf/completion.zsh ]]; then
     source /usr/share/fzf/completion.zsh
   fi
