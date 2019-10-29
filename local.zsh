@@ -335,6 +335,10 @@ stty erase "^?"
 
 ## END OF FILE #################################################################
 
+if [[ -d ~/.zsh/bin ]]; then
+  export PATH=$PATH:$HOME/.zsh/bin
+fi
+
 ## Aliases
 if type go > /dev/null; then
   alias cdgo='cd /home/$USER/go/src/github.com/$USER'
