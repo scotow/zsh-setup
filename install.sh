@@ -108,7 +108,7 @@ if ! type fzf >/dev/null 2>&1; then
   if [[ -e .zsh/bin/fzf ]]; then
     echo '[WARN] .zsh/bin/fzf already exists but is not in the the current path.'
   else
-    echo -n '[INFO] Installing fzf is only supported on linux/macOS amd64, checking...'
+    echo -n '[INFO] Installing fzf is only supported on linux/macOS amd64. Checking...'
     distro="$(uname -s | tr 'A-Z' 'a-z')"
     if [[ $distro == *linux* ]]; then
       distro="linux"
@@ -137,8 +137,18 @@ if ! type fzf >/dev/null 2>&1; then
     fi
 
     if [[ "$distro" != "none" ]]; then
+      echo -n '[INFO] Fetching fzf last version number...'
       version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
+
+      if [[ -z "$version" ]]; then
+        echo -e '\n[ERROR] Cannot fetch latest version number. Exiting.'
+        exit 1
+      fi
+      
+      echo $version
+      echo -n '[INFO] Downloading fzf binnary...'
       curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_amd64.tgz" | tar -xzf - -C .zsh/bin || exit 1
+      echo 'OK'
     fi
   fi
 else
