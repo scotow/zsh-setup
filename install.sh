@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 ## Checking for curl.
-echo -n '[INFO] Checking for curl... '
+echo -n '[INFO] Checking for curl...'
 if ! type curl >/dev/null 2>&1; then
   echo -e '\n[ERROR] This script requires curl. Exiting.'
   exit 1
@@ -9,7 +9,7 @@ fi
 echo 'OK'
 
 ## Checking for git.
-echo -n '[INFO] Checking for git... '
+echo -n '[INFO] Checking for git...'
 if ! type git >/dev/null 2>&1; then
   echo -e '\n[ERROR] This script requires git. Exiting.'
   exit 1
@@ -17,7 +17,7 @@ fi
 echo 'OK'
 
 ## Checking for tar.
-echo -n '[INFO] Checking for tar... '
+echo -n '[INFO] Checking for tar...'
 if ! type tar >/dev/null 2>&1; then
   echo -e '\n[ERROR] This script requires tar. Exiting.'
   exit 1
@@ -25,7 +25,7 @@ fi
 echo 'OK'
 
 ## Checking for optional zsh.
-echo -n '[INFO] Checking for zsh... '
+echo -n '[INFO] Checking for zsh...'
 if type zsh >/dev/null 2>&1; then
   if ! [[ $SHELL =~ "zsh" ]]; then
     echo -e '\n[INFO] You are not using zsh, running chsh (cancelable).'
@@ -137,3 +137,5 @@ for file in fzf-key-bindings fzf-key-completion; do
     echo 'OK'
   fi
 done
+
+echo -e '\n[INFO] Installation complete. Restart your shell or run "exec zsh" to apply.'
