@@ -108,12 +108,14 @@ if ! type fzf >/dev/null 2>&1; then
   if [[ -e .zsh/bin/fzf ]]; then
     echo '[WARN] .zsh/bin/fzf already exists but is not in the the current path.'
   else
-    echo '[INFO] Installing fzf is only supported on linux/macOS amd64.'
+    echo -n '[INFO] Installing fzf is only supported on linux/macOS amd64, checking...'
     distro="$(uname -s | tr 'A-Z' 'a-z')"
     if [[ $distro == *linux* ]]; then
       distro="linux"
+      echo 'OK'
     elif [[ $distro == *darwin* ]]; then
       distro="darwin"
+      echo 'OK'
     else
       echo "[WARN] Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
       distro="none"
