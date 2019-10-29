@@ -36,7 +36,7 @@ if type zsh >/dev/null 2>&1; then
     echo 'OK'
   fi
 else
-  echo -e '\n[WARNING] zsh not installed.'
+  echo -e '\n[WARN] zsh not installed.'
 fi
 
 ## Moving to home directory for installation.
@@ -60,7 +60,7 @@ echo -n '[INFO] Checking for fzf binnary...'
 if ! type fzf >/dev/null 2>&1; then
   echo 'Not found'
   if [[ -e .zsh/bin/fzf ]]; then
-    echo '[WARNING] .zsh/bin/fzf already exists but is not in the the current path.'
+    echo '[WARN] .zsh/bin/fzf already exists but is not in the the current path.'
   else
     echo '[INFO] Installing fzf (only linux/macOS amd64 are supported).'
     if [[ $REPLY =~ ^[Yy]$ ]]; then
@@ -70,7 +70,7 @@ if ! type fzf >/dev/null 2>&1; then
       elif [[ $distro == *darwin* ]]; then
         distro="darwin"
       else
-        echo "[WARNING] Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
+        echo "[WARN] Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
         distro="none"
       fi
 
@@ -95,7 +95,7 @@ fi
 echo -n '[INFO] Downloading .zshrc from grml...'
 if [[ -f .zshrc ]]; then
   dest=".zshrc.$(date +%F).old"
-  echo -en "\n[WARNING] .zshrc already exits. Moving it to $dest..."
+  echo -en "\n[WARN] .zshrc already exits. Moving it to $dest..."
   mv .zshrc $dest || exit 1
   echo 'OK'
 else
@@ -109,7 +109,7 @@ echo 'OK'
 echo -n '[INFO] Checking for .zshrc.local...'
 if [[ -f ".zshrc.local" ]]; then
   dest=".zshrc.local.$(date +%F).old"
-  echo -en "\n[WARNING] .zshrc.local already exits. Moving it to $dest..."
+  echo -en "\n[WARN] .zshrc.local already exits. Moving it to $dest..."
   mv ".zshrc.local" $dest || exit 1
   echo 'OK'
 else
@@ -122,7 +122,7 @@ echo 'OK'
 ## Download zsh-autosuggestions.
 echo -n '[INFO] Checking for zsh-autosuggestions...'
 if [[ -d ".zsh/zsh-autosuggestions" ]]; then
-  echo -e "\n[WARNING] .zshrc.local already exits. Skipping."
+  echo -e "\n[WARN] .zshrc.local already exits. Skipping."
 else
   echo 'OK'
   echo -n '[INFO] Cloning zsh-autosuggestions from GitHub...'
@@ -133,7 +133,7 @@ fi
 ## Download syntax-highlighting.
 echo -n '[INFO] Checking for syntax-highlighting...'
 if [[ -d ".zsh/syntax-highlighting" ]]; then
-  echo -e "\n[WARNING] .zshrc.local already exits. Skipping."
+  echo -e "\n[WARN] .zshrc.local already exits. Skipping."
 else
   echo 'OK'
   echo -n '[INFO] Cloning syntax-highlighting from GitHub...'
@@ -146,7 +146,7 @@ for file in fzf-key-bindings fzf-key-completion; do
   echo -n "[INFO] Checking for $file..."
   if [[ -f ".zsh/$file.zsh" ]]; then
     dest=".zsh/$file.zsh.$(date +%F).old"
-    echo -e "\n[WARNING] .zsh/$file.zsh already exits. Moving it to $dest."
+    echo -e "\n[WARN] .zsh/$file.zsh already exits. Moving it to $dest."
     mv ".zsh/$file.zsh" $dest || exit 1
     echo 'OK'
   else
