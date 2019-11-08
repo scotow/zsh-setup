@@ -28,8 +28,7 @@ echo 'OK'
 echo -n '[INFO] Checking for zsh...'
 if type zsh >/dev/null 2>&1; then
   if ! [[ $SHELL =~ "zsh" ]]; then
-    echo -e '\n[INFO] You are not using zsh, running chsh (cancelable).'
-    chsh -s "$(which zsh | head -n1)"
+    echo -e '\n[INFO] You are not using zsh, change your default shell using "chsh" or "usermod".'
   else
     echo 'OK'
   fi
