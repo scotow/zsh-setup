@@ -42,7 +42,7 @@ echo -e "$OK"
 echo -en "$INFO Checking for zsh..."
 if type zsh >/dev/null 2>&1; then
   if ! [[ $SHELL =~ "zsh" ]]; then
-    echo -e "\n$WARN You are not using zsh, change your default shell using \"chsh\" or \"usermod\"."
+    echo -e "\n$WARN You are not using zsh, change your default shell using ${ORANGE}chsh${NC} or ${ORANGE}usermod${NC}."
   else
     echo -e "$OK"
   fi
@@ -182,4 +182,4 @@ for file in fzf-key-bindings fzf-completion; do
   echo -e "$OK"
 done
 
-echo -e "\n$INFO Installation complete. Restart your shell or run \"exec zsh\" to apply."
+echo -e "\n$INFO Installation complete. Restart your shell or run ${ORANGE}exec zsh${NC} to apply."
