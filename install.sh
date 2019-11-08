@@ -42,7 +42,7 @@ echo -e "$OK"
 echo -en "$INFO Checking for zsh..."
 if type zsh >/dev/null 2>&1; then
   if ! [[ $SHELL =~ "zsh" ]]; then
-    echo -e "\n$INFO You are not using zsh, change your default shell using \"chsh\" or \"usermod\"."
+    echo -e "\n$WARN You are not using zsh, change your default shell using \"chsh\" or \"usermod\"."
   else
     echo -e "$OK"
   fi
