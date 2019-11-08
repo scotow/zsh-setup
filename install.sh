@@ -11,8 +11,8 @@ NC='\033[0m'
 INFO="${NC}[${BLUE}INFO${NC}]"
 WARN="${NC}[${ORANGE}WARN${NC}]"
 ERROR="${NC}[${ORANGE}ERROR${NC}]"
-OK="${GREEN}OK{NC}"
-NF="${BLUE}Not Found{NC}"
+OK="${GREEN}OK${NC}"
+NF="${BLUE}Not Found${NC}"
 
 ## Checking for curl.
 echo -en "$INFO Checking for curl..."
