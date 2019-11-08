@@ -29,9 +29,7 @@ echo -n '[INFO] Checking for zsh...'
 if type zsh >/dev/null 2>&1; then
   if ! [[ $SHELL =~ "zsh" ]]; then
     echo -e '\n[INFO] You are not using zsh, running chsh (cancelable).'
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      chsh -s "$(which zsh | head -n1)"
-    fi
+    chsh -s "$(which zsh | head -n1)"
   else
     echo 'OK'
   fi
