@@ -172,7 +172,7 @@ for file in fzf-key-bindings fzf-completion; do
   echo -en "$INFO Checking for $file..."
   if [[ -f ".zsh/$file.zsh" ]]; then
     dest=".zsh/$file.zsh.$(date +%F).old"
-    echo -e "\n[WARN] .zsh/$file.zsh already exits. Moving it to $dest."
+    echo -e "\n$WARN .zsh/$file.zsh already exits. Moving it to $dest."
     mv ".zsh/$file.zsh" $dest || exit 1
     echo -e "$OK"
   else
