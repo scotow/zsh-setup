@@ -12,6 +12,7 @@ NC='\033[0m'
 INFO="${NC}[${BLUE}INFO${NC}]"
 WARN="${NC}[${ORANGE}WARN${NC}]"
 ERROR="${NC}[${ORANGE}ERROR${NC}]"
+DONE="${NC}[${PURPLE}DONE${NC}]"
 OK="${GREEN}OK${NC}"
 NF="${BLUE}Not Found${NC}"
 
@@ -183,4 +184,4 @@ for file in fzf-key-bindings fzf-completion; do
   echo -e "$OK"
 done
 
-echo -e "\n$INFO Installation complete. Restart your shell or run ${PURPLE}exec zsh${NC} to apply."
+echo -e "\n$DONE Installation complete. Restart your shell or run ${PURPLE}exec zsh${NC} to apply."
