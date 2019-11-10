@@ -386,10 +386,26 @@ fi
 
 ## Helpers
 sha256sum() {
-    regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
-    if [[ $1 =~ $regex ]]; then
+    local REGEX='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    if [[ $1 =~ $REGEX ]]; then
         curl -sL $1 | command sha256sum
     else
         command sha256sum $@
     fi
 }
+
+flatten-mega() {
+    local DIRS="$@"
+
+    if [[ -z "$DIRS" ]]; then
+	    DIRS='.'
+    fi
+
+    for d in "$DIRS"; do
+	    find "$d" -type d -name "Featurettes*" -exec rm -r {} +
+	    find "$d" -mindepth 2 -type f -exec mv -t "$d" -n '{}' +
+	    find "$d" -type d -empty -delete
+    done
+}
+
+# vim:set ts=4 sts=4 sw=4 et:
