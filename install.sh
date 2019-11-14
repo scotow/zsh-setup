@@ -134,17 +134,17 @@ if ! type fzf >/dev/null 2>&1; then
 
     if [[ "$distro" != "none" ]]; then
       archi="$(uname -m | tr 'A-Z' 'a-z')"
-      if [[ $unamem == *aarch64* ]]; then
+      if [[ $archi == *aarch64* ]]; then
         archi="arm8"
-      elif [[ $unamem == *64* ]]; then
+      elif [[ $archi == *64* ]]; then
         archi="amd64"
-      elif [[ $unamem == *86* ]]; then
+      elif [[ $archi == *86* ]]; then
         archi="386"
-      elif [[ $unamem == *armv5* ]]; then
+      elif [[ $archi == *armv5* ]]; then
         archi="arm5"
-      elif [[ $unamem == *armv6l* ]]; then
+      elif [[ $archi == *armv6l* ]]; then
         archi="arm6"
-      elif [[ $unamem == *armv7l* ]]; then
+      elif [[ $archi == *armv7l* ]]; then
         archi="arm7"
       else
         echo -e "\n$WARN Cannot use the following architecture for fzf installation: $archi. Skipping fzf installation."
@@ -152,7 +152,7 @@ if ! type fzf >/dev/null 2>&1; then
       fi
     fi
 
-    if [[ "$distro" != "none" && "$archi" != "none" ]]; then
+    if [[ "$distro" != "none" -a "$archi" != "none" ]]; then
       echo -e "$OK"
       echo -en "$INFO Checking for .zsh/bin directory..."
       if [[ -e .zsh/bin ]]; then
