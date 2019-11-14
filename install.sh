@@ -125,34 +125,35 @@ if ! type fzf >/dev/null 2>&1; then
     distro="$(uname -s | tr 'A-Z' 'a-z')"
     if [[ $distro == *linux* ]]; then
       distro="linux"
-      echo -e "$OK"
     elif [[ $distro == *darwin* ]]; then
       distro="darwin"
-      echo -e "$OK"
     else
-      echo -e "$WARN Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
+      echo -e "\n$WARN Cannot use the following distro for fzf installation: $distro. Skipping fzf installation."
       distro="none"
     fi
 
-    archi="$(uname -m | tr 'A-Z' 'a-z')"
-    if [[ $unamem == *aarch64* ]]; then
-      archi="arm8"
-    elif [[ $unamem == *64* ]]; then
-      archi="amd64"
-    elif [[ $unamem == *86* ]]; then
-      archi="386"
-    elif [[ $unamem == *armv5* ]]; then
-      caddy_arch="arm5"
-    elif [[ $unamem == *armv6l* ]]; then
-      archi="arm6"
-    elif [[ $unamem == *armv7l* ]]; then
-      archi="arm7"
-    else
-      echo -e "$WARN Cannot use the following architecture for fzf installation: $archi. Skipping fzf installation."
-      archi="none"
+    if [[ "$distro" != "none" ]]; then
+      archi="$(uname -m | tr 'A-Z' 'a-z')"
+      if [[ $unamem == *aarch64* ]]; then
+        archi="arm8"
+      elif [[ $unamem == *64* ]]; then
+        archi="amd64"
+      elif [[ $unamem == *86* ]]; then
+        archi="386"
+      elif [[ $unamem == *armv5* ]]; then
+        archi="arm5"
+      elif [[ $unamem == *armv6l* ]]; then
+        archi="arm6"
+      elif [[ $unamem == *armv7l* ]]; then
+        archi="arm7"
+      else
+        echo -e "\n$WARN Cannot use the following architecture for fzf installation: $archi. Skipping fzf installation."
+        archi="none"
+      fi
     fi
 
     if [[ "$distro" != "none" -a "$archi" != "none" ]]; then
+      echo -e "$OK"
       echo -en "$INFO Checking for .zsh/bin directory..."
       if [[ -e .zsh/bin ]]; then
         if [[ -d .zsh/bin ]]; then
