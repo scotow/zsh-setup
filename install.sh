@@ -121,7 +121,7 @@ if ! type fzf >/dev/null 2>&1; then
   if [[ -e .zsh/bin/fzf ]]; then
     echo -e "$WARN .zsh/bin/fzf already exists but is not in the the current path."
   else
-    echo -en "$INFO Installing fzf is only supported on linux/macOS amd64. Checking..."
+    echo -en "$INFO Installing fzf is only supported on linux/macOS. Checking..."
     distro="$(uname -s | tr 'A-Z' 'a-z')"
     if [[ $distro == *linux* ]]; then
       distro="linux"
@@ -134,22 +134,40 @@ if ! type fzf >/dev/null 2>&1; then
       distro="none"
     fi
 
-    echo -en "$INFO Checking for .zsh/bin directory..."
-    if [[ -e .zsh/bin ]]; then
-      if [[ -d .zsh/bin ]]; then
-        echo -e "$OK"
-      else
-        echo -e "\n$WARN .zsh/bin already exists and it's not a directory. Skipping fzf installation."
-        distro="none"
-      fi  
+    archi="$(uname -m | tr 'A-Z' 'a-z')"
+    if [[ $unamem == *aarch64* ]]; then
+      archi="arm8"
+    elif [[ $unamem == *64* ]]; then
+      archi="amd64"
+    elif [[ $unamem == *86* ]]; then
+      archi="386"
+    elif [[ $unamem == *armv5* ]]; then
+      caddy_arch="arm5"
+    elif [[ $unamem == *armv6l* ]]; then
+      archi="arm6"
+    elif [[ $unamem == *armv7l* ]]; then
+      archi="arm7"
     else
-      echo -e "$NF"
-      echo -en "$INFO Creating .zsh/bin directory..."
-      mkdir .zsh/bin || exit 1
-      echo -e "$OK"
+      echo -e "$WARN Cannot use the following architecture for fzf installation: $archi. Skipping fzf installation."
+      archi="none"
     fi
 
-    if [[ "$distro" != "none" ]]; then
+    if [[ "$distro" != "none" -a "$archi" != "none" ]]; then
+      echo -en "$INFO Checking for .zsh/bin directory..."
+      if [[ -e .zsh/bin ]]; then
+        if [[ -d .zsh/bin ]]; then
+          echo -e "$OK"
+        else
+          echo -e "\n$WARN .zsh/bin already exists and it's not a directory. Skipping fzf installation."
+          distro="none"
+        fi  
+      else
+        echo -e "$NF"
+        echo -en "$INFO Creating .zsh/bin directory..."
+        mkdir .zsh/bin || exit 1
+        echo -e "$OK"
+      fi
+
       echo -en "$INFO Fetching fzf last version number..."
       version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
 
@@ -160,7 +178,7 @@ if ! type fzf >/dev/null 2>&1; then
       
       echo -e "${BLUE}$version${NC}"
       echo -en "$INFO Downloading fzf binnary..."
-      curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_amd64.tgz" | tar -xzf - -C .zsh/bin || exit 1
+      curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_${archi}.tgz" | tar -xzf - -C .zsh/bin || exit 1
       echo -e "$OK"
     fi
   fi
