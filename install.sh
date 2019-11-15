@@ -152,7 +152,7 @@ if ! type fzf >/dev/null 2>&1; then
       fi
     fi
 
-    if [[ "$distro" != "none" -a "$archi" != "none" ]]; then
+    if [[ "$distro" != "none" && "$archi" != "none" ]]; then
       echo -e "$OK"
       echo -en "$INFO Checking for .zsh/bin directory..."
       if [[ -e .zsh/bin ]]; then
