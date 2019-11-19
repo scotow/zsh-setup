@@ -408,4 +408,9 @@ flatten-mega() {
     done
 }
 
+qrcode() {
+    # TODO, terminal based encoding.
+    qrencode -t UTF8 "$@"
+}
+
 # vim:set ts=4 sts=4 sw=4 et:
