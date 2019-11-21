@@ -409,8 +409,12 @@ flatten-mega() {
 }
 
 qrcode() {
-    # TODO, terminal based encoding.
-    qrencode -t UTF8 "$@"
+    local ENC='UTF8'
+
+    if [[ "$TERM" == "xterm-256color" ]]; then
+      ENC='ANSI256'
+    fi
+    qrencode -t $ENC "$@"
 }
 
 # vim:set ts=4 sts=4 sw=4 et:
