@@ -358,8 +358,13 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
 fi
 
 # Personal MacOS alias. Should be remove if you are not me.
-if [[ "$(uname -s)" == "Darwin" && -d "$HOME/Documents/Coding/Script" ]]; then
-    export PATH="$PATH:$HOME/Documents/Coding/Script"
+if [[ "$(uname -s)" == "Darwin" ]]
+    if [[ -d "$HOME/Documents/Coding/Script" ]]; then
+        export PATH="$PATH:$HOME/Documents/Coding/Script"
+    fi
+    if [[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]]; then
+        export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+    fi
 fi
 
 ## Less
