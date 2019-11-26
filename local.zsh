@@ -348,6 +348,11 @@ if type go >/dev/null 2>&1; then
     alias cdgo='cd $GOPATH/src/github.com/$USER'
 fi
 
+# Hub
+if type hub >/dev/null 2>&1; then
+    eval "$(hub alias -s)"
+fi
+
 if [[ -d "$HOME/.cargo/bin" ]]; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
