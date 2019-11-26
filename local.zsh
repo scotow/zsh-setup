@@ -358,7 +358,7 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
 fi
 
 # Personal MacOS alias. Should be remove if you are not me.
-if [[ "$(uname -s)" == "Darwin" ]]
+if [[ "$(uname -s)" == "Darwin" ]]; then
     if [[ -d "$HOME/Documents/Coding/Script" ]]; then
         export PATH="$PATH:$HOME/Documents/Coding/Script"
     fi
