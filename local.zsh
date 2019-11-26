@@ -340,8 +340,21 @@ if [[ -d ~/.zsh/bin ]]; then
 fi
 
 ## Aliases
+# Go
 if type go >/dev/null 2>&1; then
-    alias cdgo='cd /home/$USER/go/src/github.com/$USER'
+    if [[ "$(uname -s)" == "Darwin" ]]; then
+        export GOPATH="$HOME/Documents/Coding/go"
+    fi
+    alias cdgo='cd $GOPATH/src/github.com/$USER'
+fi
+
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+# Personal MacOS alias. Should be remove if you are not me.
+if [[ "$(uname -s)" == "Darwin" && -d "$HOME/Documents/Coding/Script" ]]; then
+    export PATH="$PATH:$HOME/Documents/Coding/Script"
 fi
 
 ## Less
@@ -361,12 +374,17 @@ if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
 elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     bindkey '^[[Z' autosuggest-accept
+elif [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    bindkey '^[[Z' autosuggest-accept
 fi
 
 if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ## Fzf
@@ -375,12 +393,16 @@ if type fzf >/dev/null 2>&1; then
         source ~/.zsh/fzf-key-bindings.zsh
     elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
         source /usr/share/fzf/key-bindings.zsh
+    elif [[ -f /usr/local/opt/fzf/shell/key-bindings.zsh ]]; then
+        source /usr/local/opt/fzf/shell/key-bindings.zsh
     fi
 
     if [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
         source ~/.zsh/fzf-completion.zsh
     elif [[ -f /usr/share/fzf/completion.zsh ]]; then
         source /usr/share/fzf/completion.zsh
+    elif [[ -f /usr/local/opt/fzf/shell/completion.zsh ]]; then
+        source /usr/local/opt/fzf/shell/completion.zsh
     fi
 fi
 
