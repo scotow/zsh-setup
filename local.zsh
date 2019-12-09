@@ -434,7 +434,7 @@ flatten-mega() {
     fi
 
     for d in "$DIRS"; do
-	    find "$d" -type d -name "Featurettes*" -exec rm -r {} +
+	    find "$d" -type d -name "Featurettes*" -name "EXTRAS*" -exec rm -r {} +
 	    find "$d" -mindepth 2 -type f -exec mv -t "$d" -n '{}' +
 	    find "$d" -type d -empty -delete
     done
