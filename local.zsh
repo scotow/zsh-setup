@@ -339,7 +339,6 @@ if [[ -d ~/.zsh/bin ]]; then
     export PATH=$PATH:$HOME/.zsh/bin
 fi
 
-## Aliases
 # Go
 if type go >/dev/null 2>&1; then
     if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -417,6 +416,8 @@ if type fzf >/dev/null 2>&1; then
 fi
 
 ## Helpers
+alias christmas-tree='curl -s https://raw.githubusercontent.com/sergiolepore/ChristBASHTree/e757367e54e4d95166d9037b31211ad087e246fe/tree-EN.sh | bash'
+
 sha256sum() {
     local REGEX='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
     if [[ $1 =~ $REGEX ]]; then
