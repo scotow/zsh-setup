@@ -335,6 +335,11 @@ stty erase "^?"
 
 ## END OF FILE #################################################################
 
+# Paths
+if [[ -d ~/bin ]]; then
+    export PATH=$PATH:$HOME/bin
+fi
+
 if [[ -d ~/.zsh/bin ]]; then
     export PATH=$PATH:$HOME/.zsh/bin
 fi
