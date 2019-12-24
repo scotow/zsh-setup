@@ -415,6 +415,11 @@ if type fzf >/dev/null 2>&1; then
     fi
 fi
 
+## Jump
+if type jump >/dev/null 2>&1; then
+    eval "$(jump shell)"
+fi
+
 ## Helpers
 alias christmas-tree='curl -s https://raw.githubusercontent.com/sergiolepore/ChristBASHTree/e757367e54e4d95166d9037b31211ad087e246fe/tree-EN.sh | bash'
 
