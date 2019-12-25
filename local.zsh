@@ -382,41 +382,41 @@ if type less >/dev/null 2>&1; then
 fi
 
 ## Suggestions & Highlighting
-if [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-    bindkey '^[[Z' autosuggest-accept
-elif [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
     bindkey '^[[Z' autosuggest-accept
 elif [[ -f /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
     source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
     bindkey '^[[Z' autosuggest-accept
+elif [[ -f ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+    bindkey '^[[Z' autosuggest-accept
 fi
 
-if [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 elif [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -f ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+    source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
 
 ## Fzf
 if type fzf >/dev/null 2>&1; then
-    if [[ -f ~/.zsh/fzf-key-bindings.zsh ]]; then 
-        source ~/.zsh/fzf-key-bindings.zsh
-    elif [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
+    if [[ -f /usr/share/fzf/key-bindings.zsh ]]; then
         source /usr/share/fzf/key-bindings.zsh
     elif [[ -f /usr/local/opt/fzf/shell/key-bindings.zsh ]]; then
         source /usr/local/opt/fzf/shell/key-bindings.zsh
+    elif [[ -f ~/.zsh/fzf-key-bindings.zsh ]]; then 
+        source ~/.zsh/fzf-key-bindings.zsh
     fi
 
-    if [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
-        source ~/.zsh/fzf-completion.zsh
-    elif [[ -f /usr/share/fzf/completion.zsh ]]; then
+    if [[ -f /usr/share/fzf/completion.zsh ]]; then
         source /usr/share/fzf/completion.zsh
     elif [[ -f /usr/local/opt/fzf/shell/completion.zsh ]]; then
         source /usr/local/opt/fzf/shell/completion.zsh
+    elif [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
+        source ~/.zsh/fzf-completion.zsh
     fi
 fi
 
