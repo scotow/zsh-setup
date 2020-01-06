@@ -420,6 +420,11 @@ if type fzf >/dev/null 2>&1; then
     fi
 fi
 
+## Navi
+if type navi >/dev/null 2>&1; then
+    source "$(navi widget zsh)"
+fi
+
 ## Jump
 if type jump >/dev/null 2>&1; then
     eval "$(jump shell)"
