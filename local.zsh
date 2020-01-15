@@ -335,6 +335,8 @@ stty erase "^?"
 
 ## END OF FILE #################################################################
 
+zstyle ':completion:*' insert-tab false
+
 # Paths
 if [[ -d ~/bin ]]; then
     export PATH=$PATH:$HOME/bin
