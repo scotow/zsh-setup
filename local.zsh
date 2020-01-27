@@ -348,8 +348,12 @@ fi
 
 # Go
 if type go >/dev/null 2>&1; then
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-        export GOPATH="$HOME/Documents/Coding/go"
+    if [[ -z "$GOPATH" ]]; then
+        if [[ "$(uname -s)" == "Darwin" ]]; then
+            export GOPATH="$HOME/Documents/Coding/go"
+        elif [[ "$(uname -s)" == "Linux" ]]; then
+            export GOPATH="$HOME/go"
+        fi
     fi
     alias cdgo='cd $GOPATH/src/github.com/$USER'
 fi
@@ -376,7 +380,7 @@ fi
 ## Less
 if type less >/dev/null 2>&1; then
     export LESS=" -R "
-    alias less='less -m -N -g -i -J -u -Q'
+    alias less='less -m -N -g -i -J -u -Q --mouse'
   
     if type src-hilite-lesspipe.sh >/dev/null 2>&1; then
         export LESSOPEN="| src-hilite-lesspipe.sh %s"
@@ -419,6 +423,10 @@ if type fzf >/dev/null 2>&1; then
         source /usr/local/opt/fzf/shell/completion.zsh
     elif [[ -f ~/.zsh/fzf-completion.zsh ]]; then 
         source ~/.zsh/fzf-completion.zsh
+    fi
+
+    if type pacman xargs sudo >/dev/null 2>&1; then
+        alias pacman-search='pacman -Slq | fzf -m --preview  "pacman -Si {1}" | xargs -ro sudo pacman -S'
     fi
 fi
 
