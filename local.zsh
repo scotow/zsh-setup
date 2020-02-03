@@ -428,6 +428,10 @@ if type fzf >/dev/null 2>&1; then
     if type pacman xargs sudo >/dev/null 2>&1; then
         alias pacman-search='pacman -Slq | fzf -m --preview  "pacman -Si {1}" | xargs -ro sudo pacman -S'
     fi
+
+    if type yay xargs >/dev/null 2>&1; then
+        alias yay-search='yay -Slq | fzf -m --preview "yay -Si {1}"| xargs -ro yay -S'
+    fi
 fi
 
 ## Navi
@@ -438,6 +442,11 @@ fi
 ## Jump
 if type jump >/dev/null 2>&1; then
     eval "$(jump shell)"
+fi
+
+## Syntax highlighting
+if type highlight &>/dev/null && ! type ccat &>/dev/null; then
+    alias ccat='highlight -O xterm256'
 fi
 
 ## Helpers
