@@ -439,6 +439,11 @@ if type navi >/dev/null 2>&1; then
     source "$(navi widget zsh)"
 fi
 
+## Z
+if [[ -r "/usr/share/z/z.sh" ]]; then
+    source /usr/share/z/z.sh
+fi
+
 ## Jump
 if type jump >/dev/null 2>&1; then
     eval "$(jump shell)"
