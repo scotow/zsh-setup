@@ -495,4 +495,13 @@ qlobe() {
     clear; for ((;;)); do for i in {1..360}; do tput cup 0 0; ruby $FILE $i; sleep 0.1; done; done;
 }
 
+qrcp() {
+    local ARGS="$@"
+
+    if [[ $# -eq 0 ]]; then
+        ARGS="receive"
+    fi
+    command qrcp $ARGS | gawk 'match($0, /http:\/\/(.+):[0-9]+\/(.+\/.+)/, g) { r=sprintf("https://%s/%s", g[1], g[2]); print r; system("qrencode -t UTF8 " r) }'
+}
+
 # vim:set ts=4 sts=4 sw=4 et:
