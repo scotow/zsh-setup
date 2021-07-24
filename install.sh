@@ -170,7 +170,7 @@ if ! type fzf >/dev/null 2>&1; then
       fi
 
       echo -en "$INFO Fetching fzf last version number..."
-      version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
+      version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep -i Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
 
       if [[ -z "$version" ]]; then
         echo -e "\n$ERROR Cannot fetch latest version number. Exiting."
