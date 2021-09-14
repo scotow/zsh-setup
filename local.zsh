@@ -337,6 +337,10 @@ stty erase "^?"
 
 zstyle ':completion:*' insert-tab false
 
+if [[ "$(tty)" == *"tty"* ]]; then
+    print -z startx
+fi
+
 # Paths
 if [[ -d ~/bin ]]; then
     export PATH=$PATH:$HOME/bin
