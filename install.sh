@@ -115,7 +115,7 @@ for plugin in 'zsh-autosuggestions' 'zsh-syntax-highlighting'; do
 done
 
 ## Install fzf binary.
-echo -en "$INFO Checking for fzf binnary..."
+echo -en "$INFO Checking for fzf binary..."
 if ! type fzf >/dev/null 2>&1; then
   echo -e "$NF"
   if [[ -e .zsh/bin/fzf ]]; then
@@ -178,7 +178,7 @@ if ! type fzf >/dev/null 2>&1; then
       fi
       
       echo -e "${BLUE}$version${NC}"
-      echo -en "$INFO Downloading fzf binnary..."
+      echo -en "$INFO Downloading fzf binary..."
       curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_${archi}.tgz" | tar -xzf - -C .zsh/bin || exit 1
       echo -e "$OK"
     fi
