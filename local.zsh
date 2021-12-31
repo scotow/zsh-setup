@@ -341,7 +341,7 @@ if [[ "$(tty)" == *"tty"* ]]; then
     print -z startx
 fi
 
-# Paths
+## Paths
 if [[ -d ~/bin ]]; then
     export PATH=$PATH:$HOME/bin
 fi
@@ -350,7 +350,11 @@ if [[ -d ~/.zsh/bin ]]; then
     export PATH=$PATH:$HOME/.zsh/bin
 fi
 
-# Go
+if [[ -d "$HOME/.cargo/bin" ]]; then
+    export PATH="$PATH:$HOME/.cargo/bin"
+fi
+
+## Go
 if type go >/dev/null 2>&1; then
     if [[ -z "$GOPATH" ]]; then
         if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -362,16 +366,12 @@ if type go >/dev/null 2>&1; then
     alias cdgo='cd $GOPATH/src/github.com/$USER'
 fi
 
-# Hub
+## Hub
 if type hub >/dev/null 2>&1; then
     eval "$(hub alias -s)"
 fi
 
-if [[ -d "$HOME/.cargo/bin" ]]; then
-    export PATH="$PATH:$HOME/.cargo/bin"
-fi
-
-# Personal MacOS alias. Should be remove if you are not me.
+## Personal MacOS alias. Should be remove if you are not me.
 if [[ "$(uname -s)" == "Darwin" ]]; then
     if [[ -d "$HOME/Documents/Coding/Script" ]]; then
         export PATH="$PATH:$HOME/Documents/Coding/Script"
@@ -444,8 +444,11 @@ if type navi >/dev/null 2>&1; then
 fi
 
 ## Z
-if [[ -r "/usr/share/z/z.sh" ]]; then
+if [[ -f "/usr/share/z/z.sh" ]]; then
     source /usr/share/z/z.sh
+fi
+if type zoxide >/dev/null 2>&1; then
+    eval "$(zoxide init zsh)"
 fi
 
 ## Jump
