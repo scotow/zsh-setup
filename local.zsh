@@ -337,7 +337,7 @@ stty erase "^?"
 
 zstyle ':completion:*' insert-tab false
 
-if [[ "$(tty)" == *"tty"* ]]; then
+if [[ "$(tty)" == *"tty"* && "$(uname -s)" != "Darwin" ]]; then
     print -z startx
 fi
 
