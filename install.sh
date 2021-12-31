@@ -135,17 +135,15 @@ if ! type fzf >/dev/null 2>&1; then
     if [[ "$distro" != "none" ]]; then
       archi="$(uname -m | tr 'A-Z' 'a-z')"
       if [[ $archi == *aarch64* ]]; then
-        archi="arm8"
+        archi="arm64"
       elif [[ $archi == *64* ]]; then
         archi="amd64"
-      elif [[ $archi == *86* ]]; then
-        archi="386"
       elif [[ $archi == *armv5* ]]; then
-        archi="arm5"
-      elif [[ $archi == *armv6l* ]]; then
-        archi="arm6"
-      elif [[ $archi == *armv7l* ]]; then
-        archi="arm7"
+        archi="armv5"
+      elif [[ $archi == *armv6* ]]; then
+        archi="armv6"
+      elif [[ $archi == *armv7* ]]; then
+        archi="armv7"
       else
         echo -e "\n$WARN Cannot use the following architecture for fzf installation: $archi. Skipping fzf installation."
         archi="none"
@@ -170,7 +168,7 @@ if ! type fzf >/dev/null 2>&1; then
       fi
 
       echo -en "$INFO Fetching fzf last version number..."
-      version=$(curl -sI 'https://github.com/junegunn/fzf-bin/releases/latest' | grep -i Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
+      version=$(curl -sI 'https://github.com/junegunn/fzf/releases/latest' | grep -i Location: | rev | cut -d/ -f1 | rev | tr -d '\n\r')
 
       if [[ -z "$version" ]]; then
         echo -e "\n$ERROR Cannot fetch latest version number. Exiting."
@@ -179,7 +177,13 @@ if ! type fzf >/dev/null 2>&1; then
       
       echo -e "${BLUE}$version${NC}"
       echo -en "$INFO Downloading fzf binary..."
-      curl -sL "https://github.com/junegunn/fzf-bin/releases/download/$version/fzf-$version-${distro}_${archi}.tgz" | tar -xzf - -C .zsh/bin || exit 1
+      if [[ "$distro" == "linux" ]]; then
+        curl -sL "https://github.com/junegunn/fzf/releases/download/$version/fzf-$version-${distro}_${archi}.tar.gz" | tar -xzf - -C .zsh/bin || exit 1
+      elif [[ "$distro" == "darwin" ]]; then
+        cd $(mktemp -d)
+        curl -sL "https://github.com/junegunn/fzf/releases/download/$version/fzf-$version-${distro}_${archi}.zip" && unzip *.zip && mv fzf $HOME/.zsh/bin/ || exit
+        cd -
+      fi
       echo -e "$OK"
     fi
   fi
