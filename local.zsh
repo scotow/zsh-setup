@@ -444,11 +444,10 @@ if type navi >/dev/null 2>&1; then
 fi
 
 ## Z
-if [[ -f "/usr/share/z/z.sh" ]]; then
-    source /usr/share/z/z.sh
-fi
 if type zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"
+elif [[ -f "/usr/share/z/z.sh" ]]; then
+    source /usr/share/z/z.sh
 fi
 
 ## Jump
