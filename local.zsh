@@ -174,12 +174,12 @@ fi
 
 ## global aliases (for those who like them) ##
 
-#alias -g '...'='../..'
-#alias -g '....'='../../..'
-#alias -g BG='& exit'
-#alias -g C='|wc -l'
+alias -g '...'='../..'
+alias -g '....'='../../..'
+alias -g BG='& exit'
+alias -g C='|wc -l'
 alias -g G='|grep'
-#alias -g H='|head'
+alias -g H='|head'
 #alias -g Hl=' --help |& less -r'
 #alias -g K='|keep'
 alias -g L='|less'
@@ -189,8 +189,8 @@ alias -g N='&>/dev/null'
 #alias -g R='| tr A-z N-za-m'
 #alias -g SL='| sort | less'
 #alias -g S='| sort'
-#alias -g T='|tail'
-#alias -g V='| vim -'
+alias -g T='|tail'
+alias -g V='| vim -'
 
 ## instead of global aliase it might be better to use grmls $abk assoc array, whose contents are expanded after pressing ,.
 #$abk[SnL]="| sort -n | less"
