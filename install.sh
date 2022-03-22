@@ -134,7 +134,7 @@ if ! type fzf >/dev/null 2>&1; then
 
     if [[ "$distro" != "none" ]]; then
       archi="$(uname -m | tr 'A-Z' 'a-z')"
-      if [[ $archi == *aarch64* ]]; then
+      if [[ $archi == *aarch64* || $archi == arm64 ]]; then
         archi="arm64"
       elif [[ $archi == *64* ]]; then
         archi="amd64"
@@ -181,7 +181,7 @@ if ! type fzf >/dev/null 2>&1; then
         curl -sL "https://github.com/junegunn/fzf/releases/download/$version/fzf-$version-${distro}_${archi}.tar.gz" | tar -xzf - -C .zsh/bin || exit 1
       elif [[ "$distro" == "darwin" ]]; then
         cd $(mktemp -d)
-        curl -sL "https://github.com/junegunn/fzf/releases/download/$version/fzf-$version-${distro}_${archi}.zip" && unzip *.zip && mv fzf $HOME/.zsh/bin/ || exit 1
+        curl -sLJO "https://github.com/junegunn/fzf/releases/download/$version/fzf-$version-${distro}_${archi}.zip" && unzip *.zip && mv fzf $HOME/.zsh/bin/ || exit 1
         cd -
       fi
       echo -e "$OK"
