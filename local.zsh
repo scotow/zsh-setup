@@ -354,6 +354,10 @@ if [[ -d "$HOME/.cargo/bin" ]]; then
     export PATH="$PATH:$HOME/.cargo/bin"
 fi
 
+if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval $(/opt/homebrew/bin/brew shellenv)
+fi
+
 ## Go
 if type go >/dev/null 2>&1; then
     if [[ -z "$GOPATH" ]]; then
