@@ -350,8 +350,12 @@ if [[ -d ~/.zsh/bin ]]; then
     export PATH=$PATH:$HOME/.zsh/bin
 fi
 
-if [[ -d "$HOME/.cargo/bin" ]]; then
-    export PATH="$PATH:$HOME/.cargo/bin"
+if [[ -d ~/.cargo/bin ]]; then
+    export PATH=$PATH:$HOME/.cargo/bin
+fi
+
+if [[ -d ~/.homebrew/bin ]]; then
+    export PATH=$PATH:$HOME/.homebrew/bin
 fi
 
 if [[ -x /opt/homebrew/bin/brew ]]; then
