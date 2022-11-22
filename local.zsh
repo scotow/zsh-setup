@@ -504,9 +504,8 @@ qrcode() {
 }
 
 qlobe() {
-    local FILE=$(mktemp)
-    curl -so $FILE https://raw.githubusercontent.com/knoxknox/qlobe/86400d84fb4d7d4aae02d02f983f0eed6736d2ba/src/qlobe.rb
-    clear; for ((;;)); do for i in {1..360}; do tput cup 0 0; ruby $FILE $i; sleep 0.1; done; done;
+    local CODE=$(curl -s https://raw.githubusercontent.com/knoxknox/qlobe/86400d84fb4d7d4aae02d02f983f0eed6736d2ba/src/qlobe.rb)
+    clear; for ((;;)); do for i in {0..71}; do tput cup 0 0; echo $CODE | ruby - $((i * 5)); sleep 0.1; done; done;
 }
 
 qrcp() {
