@@ -387,6 +387,10 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     if [[ -d "/Applications/Visual Studio Code.app/Contents/Resources/app/bin" ]]; then
         export PATH="$PATH:/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
     fi
+    local RUSTROVER_LIST=(/Applications/RustRover*.app/Contents/MacOS)
+    if [[ ${#RUSTROVER_LIST[@]} -ge 1 ]]; then
+        export PATH="$PATH:${RUSTROVER_LIST[1]}"
+    fi
 fi
 
 ## Less
